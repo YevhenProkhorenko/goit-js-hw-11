@@ -1,6 +1,6 @@
 import Notiflix from 'notiflix';
 import axios from 'axios';
-// import API from './fetchIMG';
+import API from './fetchIMG';
 
 const API_KEY = '29227612-6a3f7ca9f0166aa0e385beb2d';
 const refs = {
@@ -13,8 +13,12 @@ refs.form.style.backgroundColor = "darkblue";
 refs.form.style.display = "flex";
 refs.form.style.justifyContent = "center";
 refs.galleryWrapper.style.display = "grid";
-refs.galleryWrapper.style.gridTemplateColumns = "repeat(4, 2fr)";
-refs.galleryWrapper.style.gridAutoRows = "minmax(100px, auto)";
+refs.galleryWrapper.style.gridTemplateColumns = "repeat(auto-fill, 450px)";
+refs.galleryWrapper.style.padding = "25px"
+refs.galleryWrapper.style.gridColumnGap = "1em";
+refs.galleryWrapper.style.gridRowGap ="1em";
+// refs.galleryWrapper.style.gridAutoRows = "minmax(100px, auto)"; 
+//стилі по  окремій картці слід накладати  на class="info"
 
 refs.form.addEventListener('submit', submit);
 
@@ -52,20 +56,60 @@ const insertInfo = (array) => {                         //додаєо розм�
 }
 function createContent(item) {                  //Створюємо HTML розмітку отриманих зображень
   return `<div class="photo-card">
-  <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy"  width="200px" heigth= "200px"/>
-  <div class="info">
-    <p class="info-item">
-      <b>${item.likes}Likes</b>
-    </p>
-    <p class="info-item">
-      <b>Views: </b>${item.views}
-    </p>
-    <p class="info-item">
-      <b>Comments: </b>${item.comments}
-    </p>
-    <p class="info-item">
+  <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy"  width="450px"/>
+    <div class="info">
+     <div class="info">
+      <p class="info-item">
+        <b>Likes: </b>${item.likes}
+      </p>
+      <p class="info-item">
+        <b>Views: </b>${item.views}
+      </p>
+      <p class="info-item">
+        <b>Comments: </b>${item.comments}
+      </p>
+      <p class="info-item">
       <b>Downloads: </b>${item.downloads}
-    </p>
+      </p> 
   </div>
+    </div>
 </div>`; 
 }
+
+
+
+
+/* <table>
+    <thead>
+    <tr>
+      <th>Likes:</th>
+      <th>Views:</th>
+      <th>Comments:</th>
+      <th>Downloads:</th>
+    </tr>
+  </thead>
+     <tbody>
+        <tr>
+        <td>
+        <p class="info-item">
+          ${item.likes}
+        </p>
+        </td>
+        <td>
+        <p class="info-item">
+      ${item.views}
+        </p>
+        </td>
+        <td>
+        <p class="info-item">
+      ${item.comments}
+        </p>
+      </td>
+        <td>
+        <p class="info-item">
+      ${item.downloads}
+      </p>
+        </td>
+    </tr>        
+     </tbody>         
+    </table> */
