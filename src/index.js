@@ -38,11 +38,11 @@ async function getImages(result) {
 
 const generateInfo = (array) => array?.reduce((acc, item) => acc + createContent(item.data), ""); //Перебериємо  масив об'єктів зображень і кожен об'єкт додаємо в функцію рендера зображення
 
-const insertInfo = (array) => {
+const insertInfo = (array) => {                         //додаєо розмітку в HTML
     const result = generateInfo(array.data);
     refs.galleryWrapper.innerHTML = result;
 }
-function createContent(item) {                  //Створюємо HTML розмітку отриманих з сервера зображень
+function createContent(item) {                  //Створюємо HTML розмітку отриманих зображень
   return `<div class="photo-card">
   <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" width="20px"/>
   <div class="info">
@@ -60,4 +60,51 @@ function createContent(item) {                  //Створюємо HTML роз
     </p>
   </div>
 </div>`
-}  
+
+  
+}
+
+
+//Попередні варіанти, коли релюсом відразу робилася розмітка без функції generateInfo
+
+//   const render = data.reduce((acc, item) => {
+//     return acc + `<div class="photo-card">
+//   <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" width="20px"/>
+//   <div class="info">
+//     <p class="info-item">
+//       <b>${item.likes}Likes</b>
+//     </p>
+//     <p class="info-item">
+//       <b>Views: </b>${item.views}
+//     </p>
+//     <p class="info-item">
+//       <b>Comments: </b>${item.comments}
+//     </p>
+//     <p class="info-item">
+//       <b>Downloads: </b>${item.downloads}
+//     </p>
+//   </div>
+// </div>`
+        
+//   }, "");
+
+  // refs.galleryWrapper.innerHTML("beforeend", render);
+
+//     const result = data.reduce((acc, item) => (acc += `<div class="photo-card">
+//   <img src="" alt="" loading="lazy" />
+//   <div class="info">
+//     <p class="info-item">
+//       <b>${item.likes}Likes</b>
+//     </p>
+//     <p class="info-item">
+//       <b>Views</b>
+//     </p>
+//     <p class="info-item">
+//       <b>Comments</b>
+//     </p>
+//     <p class="info-item">
+//       <b>Downloads</b>
+//     </p>
+//   </div>
+// </div>`
+//     ), "");
