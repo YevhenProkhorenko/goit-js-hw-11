@@ -3,7 +3,7 @@ import axios from 'axios';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-import API from './fetchIMG'
+// import API from './fetchIMG'
 
 // import NewApiService from './fetchIMG';
 // const NewApi = await new NewApiService();
@@ -67,21 +67,22 @@ async function getImages(inputName) {
   try {
     const response = await axios.get(`https://pixabay.com/api/?key=${API_KEY}&q=${inputName}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`) // Отримуємо проміс з масивом об'єктів потрібних зображень
     
-    totalPageResult = response.data.totalHits / perPage; //Рахуємо, яке буде загальне значення всіх виведених сторінок
+
+    totalPageResult = response.data.totalHits/perPage; //Рахуємо, яке буде загальне значення всіх виведених сторінок
+    console.log(totalPageResult)   
     
     if (response === [] || refs.inputImgName.value === "") {
         Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')
-    }
-
-    if (page === totalPageResult) { /// Перевірка на виведення всіх зображень
+    } 
+    if (page > totalPageResult) { 
     Notiflix.Notify.success("Hooray! We found totalHits images.");
     refs.loadMore.style.display = "none";
-  }
-      else {
-        insertInfo(response.data) //Рендеримо масив зображень
-      page += 1;          
-      }    
     }
+    insertInfo(response.data) //Рендеримо масив зображень
+    page += 1;
+    console.log(page)
+  }
+  
     catch (error) {      
       Notiflix.Notify.failure(error)
     }
