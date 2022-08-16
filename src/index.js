@@ -44,7 +44,7 @@ function submit(e) {
      
     refs.loadMore.style.display = "none";
     Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')
-    refs.galleryWrapper.innerHTML.trim() = "";
+    refs.galleryWrapper.innerHTML = "";
   }
   page = 1;
   getImages(inputName);                     //відправляємо запит на сервер із потрібною назвою зображення
