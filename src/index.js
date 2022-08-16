@@ -25,23 +25,10 @@ const refs = {
 }
 ///Стилізація форми, кнопок та галереї 
 
-refs.form.style.backgroundColor = "darkblue";
-refs.form.style.display = "flex";
-refs.form.style.justifyContent = "center";
+
 
 refs.loadMore.style.display = "none";
-refs.loadMore.style.backgroundColor = "darkblue";
-refs.loadMore.style.color = "white";
-refs.loadMore.style.borderRadius = "4px";
-refs.loadMore.style.padding = "6px 22px";
-refs.loadMore.style.cursor = "pointer";
 
-refs.galleryWrapper.style.display = "grid";
-refs.galleryWrapper.style.gridTemplateColumns = "repeat(auto-fill, 450px)";
-refs.galleryWrapper.style.padding = "25px"
-refs.galleryWrapper.style.gridColumnGap = "1em";
-refs.galleryWrapper.style.gridRowGap ="1em";
-refs.galleryWrapper.style.gridAutoRows = "minmax(100px, auto)";
 
 
 refs.form.addEventListener('submit', submit);
@@ -61,7 +48,8 @@ function submit(e) {
   }
   page = 1;
   getImages(inputName);                     //відправляємо запит на сервер із потрібною назвою зображення
- refs.loadMore.style.display = "block" 
+  refs.loadMore.style.display = "block";
+  
 }
 
 function loadMoreImg() {  
@@ -97,13 +85,15 @@ const generateInfo = (array) => array?.reduce((acc, item) => acc + createContent
 
 const insertInfo = (array) => {                         //додаєо розмітку в HTML
     const result = generateInfo(array.hits);
-    refs.galleryWrapper.innerHTML = result;
+  refs.galleryWrapper.innerHTML = result;
+  lightbox();
 }
 
 
 function createContent(item) {                  //Створюємо HTML розмітку отриманих зображень
   return ` 
   <div class="photo-card">
+  <a class= "link-image" href="${item.largeImageURL}"> 
   <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy"  width="450px"/>
     <div class="info">
       <p class="info-item">
@@ -119,9 +109,18 @@ function createContent(item) {                  //Створюємо HTML роз
       <b>Downloads: </b>${item.downloads}
       </p> 
   </div>
-</div>`; 
+  </a>
+</div>`;  
+  
 }
 
+function lightbox() {
+  return new SimpleLightbox('.gallery a', {
+        captionsData: "alt",
+        captionDelay: 250,
+        captionPosition: "bottom",
+  });
+}
 
 
 
