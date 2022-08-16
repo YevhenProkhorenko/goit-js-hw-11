@@ -53,6 +53,12 @@ function submit(e) {
   e.preventDefault();
 
   inputName = refs.inputImgName.value; //Записуємо назву зображення, яке потрібно вивести на екран
+  if (inputName === "") {
+     
+    refs.loadMore.style.display = "none";
+    Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')
+    refs.galleryWrapper.innerHTML.trim() = "";
+  }
   page = 1;
   getImages(inputName);                     //відправляємо запит на сервер із потрібною назвою зображення
  refs.loadMore.style.display = "block" 
@@ -69,18 +75,17 @@ async function getImages(inputName) {
     
 
     totalPageResult = response.data.totalHits/perPage; //Рахуємо, яке буде загальне значення всіх виведених сторінок
-    console.log(totalPageResult)   
     
-    if (response === [] || refs.inputImgName.value === "") {
-        Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')
-    } 
     if (page > totalPageResult) { 
     Notiflix.Notify.success("Hooray! We found totalHits images.");
     refs.loadMore.style.display = "none";
     }
-    insertInfo(response.data) //Рендеримо масив зображень
+    else {
+      insertInfo(response.data) //Рендеримо масив зображень
     page += 1;
     console.log(page)
+    }
+    
   }
   
     catch (error) {      
