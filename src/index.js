@@ -41,14 +41,17 @@ function submit(e) {
 
   inputName = refs.inputImgName.value; //Записуємо назву зображення, яке потрібно вивести на екран
   if (inputName === "") {
-     
+    refs.galleryWrapper.innerHTML = "";
     refs.loadMore.style.display = "none";
     Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')
-    refs.galleryWrapper.innerHTML = "";
+    
   }
-  page = 1;
-  getImages(inputName);                     //відправляємо запит на сервер із потрібною назвою зображення
-  refs.loadMore.style.display = "block";
+  else {
+    page = 1;
+    getImages(inputName);                     //відправляємо запит на сервер із потрібною назвою зображення
+    refs.loadMore.style.display = "block";
+  }
+
   
 }
 
@@ -97,16 +100,16 @@ function createContent(item) {                  //Створюємо HTML роз
   <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy"  width="450px"/>
     <div class="info">
       <p class="info-item">
-        <b>Likes: </b>${item.likes}
+        <b class="borderParagraph">Likes: </b>${item.likes}
       </p>
       <p class="info-item">
-        <b>Views: </b>${item.views}
+        <b class="borderParagraph">Views: </b>${item.views}
       </p>
       <p class="info-item">
-        <b>Comments: </b>${item.comments}
+        <b class="borderParagraph">Comments: </b>${item.comments}
       </p>
       <p class="info-item">
-      <b>Downloads: </b>${item.downloads}
+      <b class="borderParagraph">Downloads: </b>${item.downloads}
       </p> 
   </div>
   </a>
