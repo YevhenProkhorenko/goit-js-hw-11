@@ -72,8 +72,8 @@ async function getImages(inputName) {
     refs.loadMore.style.display = "none";
     }
     if (response.data.totalHits === 7) {
-      insertInfo(response.data)
       refs.loadMore.style.display = "none";
+      insertInfo(response.data);      
     }
     else {
       insertInfo(response.data) //Рендеримо масив зображень
