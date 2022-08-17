@@ -71,6 +71,10 @@ async function getImages(inputName) {
     Notiflix.Notify.success("Hooray! We found totalHits images.");
     refs.loadMore.style.display = "none";
     }
+    if (response.data.totalHits === 7) {
+      insertInfo(response.data)
+      refs.loadMore.style.display = "none";
+    }
     else {
       insertInfo(response.data) //Рендеримо масив зображень
     page += 1;
